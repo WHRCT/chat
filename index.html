@@ -8,6 +8,7 @@
     <meta name=referrer content=no-referrer>
     <title>公共留言板</title>
     <link rel="stylesheet" href="dl.css">
+    <link rel="stylesheet" href="tc.css">
     <link rel="stylesheet" href="./css/boot.css">
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
     <link rel="shortcut icon" href="https://q2.qlogo.cn/headimg_dl?dst_uin=3540746063&spec=100" type="image/x-icon">
@@ -59,8 +60,7 @@
         }
 
         .add {
-            background: url(https://i0.hdslb.com/bfs/article/35135fe8c351e1bc39cd5afa3d2985fbea66342b.jpg);
-            box-shadow:0 0 50px 30px #ffffff inset;
+            background: #D2E9FF;
             height: 300px;
             display: flex;
             align-items: center;
@@ -85,9 +85,6 @@
             outline: 0;
             box-shadow: inset 0px 1px 6px #ECF3F5;
         }
-        .add ul{
-            background: url("https://i0.hdslb.com/bfs/article/76e88978297935aa1cab608df21832520264b55e.jpg");
-        }
 
         .add .center button {
             width: 100px;
@@ -107,7 +104,7 @@
             display: flex;
             align-items: center;
             flex-direction: column;
-            box-shadow:0 0 50px 30px #ffffff inset;
+            background: #e1f0ff;
             padding-bottom: 20px;
             padding: 0;
         }
@@ -236,74 +233,7 @@
             vertical-align: -0.15em;
             fill: currentColor;
             overflow: hidden;
-            animation-duration: 0s;
-            animation-name: slidein;
         }
-
-        .hot_icon{
-            animation-duration: 0.5s;
-            animation-name: slidein;
-            float: right;
-            margin-top: -10px;
-            margin-right: -15px;
-            
-        }
-            @keyframes slidein {
-
-                10%{
-                    width: 20px;
-                    height: 10px;
-                }
-                15%{
-                    width: 25px;
-                    height: 15px;
-                }
-                20%{
-                    width: 30px;
-                    height: 20px;
-                }
-                25%{
-                    width: 35px;
-                    height: 25px;
-                }
-                30%{
-                    width: 40px;
-                    height: 30px;
-                }
-                40%{
-                    width: 45px;
-                    height: 35px;
-                }
-                50%{
-                    width: 50px;
-                    height: 40px;
-                }
-                70%{
-                    width: 60px;
-                    height: 50px;
-                }
-
-                80%{
-                    width: 70px;
-                    height: 60px;
-                }
-                90%{
-                    width: 80px;
-                    height: 70px;
-                }
-            
-    }
-        .icon:hover{
-                transition-property: all;
-                transition-duration: 0.8s;
-                width: 30px;
-                height: 30px;
-        }
-
-        
-
-
-
 
     </style>
 </head>
@@ -401,9 +331,9 @@
 
         <div class="add">
             <div class="center">
-                <span>名字：</span><input type="text" id="name" placeholder="请输入昵称" maxlength="30"><br>
+                <span>名字：</span><input type="text" id="name" placeholder="请输入昵称" maxlength="10"><br>
                 <span>邮箱：</span><input type="text" id="email" placeholder="请输入邮箱" maxlength="100"><br>
-                <span>内容：</span><input type="text" id="context" placeholder="请输入内容" maxlength="999999"><br>
+                <span>内容：</span><input type="text" id="context" placeholder="请输入内容" maxlength="1000"><br>
                 <button type="button" value="发布" onclick="addcontexts()">发布</button>
                 <button type="reset" value="重置" onclick="reset()">重置</button>
             </div>
@@ -432,20 +362,16 @@
             </li>
             <li v-for="(item,index) in searchList" :key="item.id">
                 <div class="itemOne">
-
                     <span class="itemName">{{item.name}}</span>
                     <span class="itemTitle">{{item.email}}</span>
-                    <img src="hot.svg" width="90px" height="80px" alt="" class="hot_icon" v-show="item.thumbsUp > hot">
-
                 </div>
                 <span class="itemContext">{{item.context}}</span><br><br>
-                <span class="itemCreateTime" style="color: palevioletred;">{{item.address}}</span> 
-                <br>
+                <span class="itemCreateTime" style="color: palevioletred;">{{item.address}}</span><br>
                 <span class="itemCreateTime">{{item.createTime}}</span><br>
                 <!-- <img v-show="showIcon" src="ydz.png" width="10px" height="10px" alt="" style="display:inline-block;text-align: right;margin-right: 25px;" v-show="showsvg"> -->
                 <span style="display: block;text-align: right;margin-right: 25px;">{{item.thumbsUp}}</span>
-                <svg class="icon last"   aria-hidden="true" @click="thumbs(item.id,index)"  v-bind:id="index" >
-                    <use  v-bind:xlink:href="arr.includes(item.id) ? styleSvg:styleSvgs"></use>
+                <svg class="icon last" aria-hidden="true" @click="thumbs(item.id,index)"  v-bind:id="index">
+                    <use v-bind:xlink:href="arr.includes(item.id) ? styleSvg:styleSvgs"></use>
                 </svg>
             </li>
             <li class="itemQ">
@@ -482,7 +408,7 @@
                 thumbsCount:'',
                 showIcon:false,
                 showSvg:true,
-                hot:'',
+                arrs:[],
                 arr:[],
                 styleSvgs:'#icon-dianzan1',
                 styleSvg:'#icon-dianzan',
@@ -581,7 +507,6 @@
                         .then(function (response) {
                             console.log(response.data.data.list.records);
                             that.searchList = response.data.data.list.records;
-                            that.hot = response.data.data.hot;
                             // 跳转第一页
                             page = 1;
                             that.pagePrint = '第' + page + '页';
@@ -760,7 +685,7 @@
                 data: JSON.stringify({ "name": name, "email": emails, "context": context, "uuid": key }),
                 success: function (data) {
                     if (data.code === 200) {
-                        swal("留言成功", "OK", "success");
+                        swal("成功", "留言成功", "success");
                         searchAll();
                         //播放新年音乐
                         var audio = document.getElementById("bgMusic");
@@ -772,7 +697,6 @@
                         var audio = document.getElementById("bgMusic");
                         audio.currentTime = 0;
                         audio.play();
-
                     }
                 }
             })
@@ -818,7 +742,7 @@
                 searchAll();
                 addAccessCount();
                 initdz();
-                sweetAlert("欢迎来到王浩瑞搭建的公共留言板");
+                sweetAlert("欢迎来到王浩瑞的公共留言板");
             }
         }
         loading_bestxiao()
