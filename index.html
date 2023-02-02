@@ -8,7 +8,6 @@
     <meta name=referrer content=no-referrer>
     <title>留言板</title>
     <link rel="stylesheet" href="dl.css">
-    <link rel="stylesheet" href="css/load.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
     <link rel="shortcut icon" href="https://q2.qlogo.cn/headimg_dl?dst_uin=2726225713&spec=100" type="image/x-icon">
@@ -243,24 +242,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-
-<!--动画-->
-<div id="loading-v3">
-
-    <div id="loading-v3-bg"></div>
-    <div id="loading-v3-box">
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-</div>
 
 
     <!--灯笼  -->
@@ -764,14 +747,18 @@
             } 
         }
 
-        
+        //加载动画
+        function loading_bestxiao() {
+            var div_loading_xiao_bestxiao = document.createElement('div');
+            div_loading_xiao_bestxiao.className = 'loading_xiao_bestxiao';
+            div_loading_xiao_bestxiao.innerHTML = `<div class="loading_box_xiao_bestxiao"><div class="loading_up_xiao_bestxiao"></div><div class="loading_down_xiao_bestxiao"></div></div><style>body{width:100vw;height:100vh;overflow:hidden}.loading_xiao_bestxiao{position:absolute;width:100vw;height:100vh;top:0px;left:0px;z-index:999999999999;background:#000;display:flex;justify-content:center;align-items:center}.loading_box_xiao_bestxiao{width:200px;height:200px;position:relative;display:flex;justify-content:center;align-items:center;flex-direction:column}.loading_up_xiao_bestxiao{position:absolute;width:100%;height:100%;border-radius:30px;z-index:2;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.2);backdrop-filter:blur(5px);animation:load_xiao_bestxiao 2s ease-in-out infinite}.loading_down_xiao_bestxiao{position:absolute;width:100%;height:100%;border-radius:30px;z-index:1;filter:blur(1px);background:linear-gradient(135deg,#1afbf0,#da00ff);animation:loadin_xiao_bestxiao 8s ease-in-out infinite}@keyframes load_xiao_bestxiao{from{transform:rotate(0deg)}to{transform:rotate(90deg)}}@keyframes loadin_xiao_bestxiao{25%{transform:rotate(-90deg)}50%{transform:rotate(-180deg)}75%{transform:rotate(-270deg)}100%{transform:rotate(-360deg)}}</style>`;
+            document.body.appendChild(div_loading_xiao_bestxiao);
             window.onload = function () {
+                //判断是否为手机
                 let Phone = IsPhone();
                 if (Phone == true) {
                     document.getElementById("dl-all").style.display = "none"
                 }
-                //判断是否为手机
-                document.getElementById("loading-v3").style.display = "none"
                 document.body.removeChild(div_loading_xiao_bestxiao);
                 searchAll();
                 addAccessCount();
@@ -779,10 +766,9 @@
                 sweetAlert("欢迎来到留言板 \n项目qq群：496301073");
                 //获取上次的留言身份信息
                 getUserInfoCache()
+                loading_bestxiao()
             }
-        
-       
-       
+        }
         
     </script>
 
