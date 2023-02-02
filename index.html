@@ -766,12 +766,12 @@
 
         
             window.onload = function () {
-                //判断是否为手机
-                document.getElementById("loading-v3").style.display = "none"
                 let Phone = IsPhone();
                 if (Phone == true) {
                     document.getElementById("dl-all").style.display = "none"
                 }
+                //判断是否为手机
+                document.getElementById("loading-v3").style.display = "none"
                 document.body.removeChild(div_loading_xiao_bestxiao);
                 searchAll();
                 addAccessCount();
