@@ -755,10 +755,6 @@
             document.body.appendChild(div_loading_xiao_bestxiao);
             window.onload = function () {
                 //判断是否为手机
-                let Phone = IsPhone();
-                if (Phone == true) {
-                    document.getElementById("dl-all").style.display = "none"
-                }
                 document.body.removeChild(div_loading_xiao_bestxiao);
                 searchAll();
                 addAccessCount();
